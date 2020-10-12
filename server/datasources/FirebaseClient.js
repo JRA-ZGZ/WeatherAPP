@@ -1,15 +1,14 @@
 const firebase = require('firebase');
-let firebaseConfig = {
-    apiKey: "AIzaSyC-f5jJVrV7OgbZargyA0NCHXYQfWwEL3Y",
-    authDomain: "weatherapp-jrazgz.firebaseapp.com",
-    databaseURL: "https://weatherapp-jrazgz.firebaseio.com",
-    projectId: "weatherapp-jrazgz",
-    storageBucket: "weatherapp-jrazgz.appspot.com",
-    messagingSenderId: "569709047887",
-    appId: "1:569709047887:web:a3af90bec0a2482dc9fa3a"
-  };
-  // Initialize Firebase
-
+const firebaseConfig = {
+    apiKey: "api-key",
+    authDomain: "project-id.firebaseapp.com",
+    databaseURL: "https://project-id.firebaseio.com",
+    projectId: "project-id",
+    storageBucket: "project-id.appspot.com",
+    messagingSenderId: "sender-id",
+    appID: "app-id",
+};
+  
 class FirebaseClient {
     static getClient(){
         if(!this.client){

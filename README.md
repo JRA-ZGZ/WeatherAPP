@@ -1,9 +1,15 @@
 # React - weather-app
-Here an example [HerokuWeatherAPP](https://test22224123.herokuapp.com/)
-## Table of contents
-* [Instructions](#Instructions)
-* [Description](#Description)
 
+## Table of contents
+* [Description](#Description)
+* [Instructions](#Instructions)
+* [Notes](#Notes)
+
+## Description
+React weather app using OpenWeatherMap API & Firebase.
+Here an example [HerokuWeatherAPP](https://test22224123.herokuapp.com/).
+
+Server side exports a rest [API](apidoc/index.html).
 
 ## Instructions
 
@@ -26,5 +32,16 @@ Run it
 $ npm run start 
 ```
 
-## Description
-This is a simple react weather app using OpenWeatherMap API.
+## Notes
+If you want to use firebase remember to config with your own credentials the [FirebaseClient](server\datasources\FirebaseClient.js) 
+```bash
+const firebaseConfig = {
+  apiKey: "api-key",
+  authDomain: "project-id.firebaseapp.com",
+  databaseURL: "https://project-id.firebaseio.com",
+  projectId: "project-id",
+  storageBucket: "project-id.appspot.com",
+  messagingSenderId: "sender-id",
+  appID: "app-id",
+};
+```

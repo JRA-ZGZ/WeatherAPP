@@ -7,7 +7,7 @@ class GetWeatherFactory {
             const cityLowerCase = city.toLowerCase(); 
             const key = `${cityLowerCase}_${ISOStringDate}`          
             //Try from database
-            let weatherResult = await FirebaseClient.get(key);
+            let weatherResult = await FirebaseClient.get(key).catch((e)=> console.log('GetWeatherFactory:FirebaseClien Error',e));
             if(!weatherResult){
                 //Try by HTTP
                 weatherResult = await OpenWeatherMapClient.getWeatherByPlace(cityLowerCase);

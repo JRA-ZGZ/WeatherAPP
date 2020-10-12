@@ -5,9 +5,9 @@ import CityInput from './components/CityInput';
 import WeatherBox from './components/WeatherBox';
 import WeatherBoxDetails from './components/WeatherBoxDetails';
 import Utils from './Utils';
+import SSEClient from './sse/SSEClient';
 
 class App extends React.Component {
-
   state = {
     city: undefined, // City name selected.
     dayindex:0, // Selected day in the days array. (index 0 -> today)
@@ -19,14 +19,20 @@ class App extends React.Component {
     // tries to make an API call with the given city name and triggers state update
     makeApiCall = async city => {
       try{
-
         const fetchData = await fetch(
           `/api/weather/city/${city}/${Date.now()}`
         )
         const api_data = await fetchData.json();        
-              
         if (api_data.cod === '200') {
           await this.updateState(api_data); 
+          //Register for future city weather changes events to SSE channel
+          const eventKey = `${city}`.toLowerCase();
+          if(!this.sseClient){
+            this.sseClient = new SSEClient(eventKey,this.updateState).init().keepMeInformed(eventKey);            
+          }else{
+            this.sseClient.keepMeInformed(eventKey);
+          }
+          
           return true;
         } 
         return false;
@@ -34,7 +40,8 @@ class App extends React.Component {
         console.error(e);
         if (e.cod === '200') {
           return true;
-        } 
+        }
+
         return false;
       }
     };

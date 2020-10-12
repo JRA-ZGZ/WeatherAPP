@@ -9,7 +9,8 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const chalk = require('chalk');
 const server = require('./');
-
+const SSEManager = require('./sse/SSEManager');
+const SSERegisterClient = require('./services/sseRegisterClient');
 // logging middleware
 app.use(morgan('dev'));
 
@@ -37,6 +38,13 @@ app.use(setCache);
 
 // prepend '/api' to URIs
 app.use('/api', server);
+
+//SSEManager
+//app.get('/sse', sseManager) <-- Use this to notify.
+const sseManager = new SSEManager(app);
+sseManager.init();
+//Use this for register to SSE channel when someone is interested in a city weather
+app.put('/sse/:city', SSERegisterClient);
 
 // serve static files from public
 app.use(express.static(path.join(__dirname, '..', 'build')));

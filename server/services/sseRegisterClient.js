@@ -1,21 +1,14 @@
 const GenericService = require('./GenericService');
-const GetWeatherFactory = require('../datasources/GetWeatherFactory');
 const SSEManager = require('../sse/SSEManager');
-class GetWeatherService extends GenericService {
+
+class SSERegisterClient extends GenericService {
   
   validateRequest(request) {
-    if(!request.params.city || !request.params.timestamp){
+    if(!request.params.city ){
       const requestError = new Error('Invalid Request - missing parameters');
       requestError.code = 400;
       throw requestError;
-    }
-    try{
-        new Date(Number(request.params.timestamp));
-    }catch(e){
-        const requestError = new Error('Invalid Request - invalid parameters');
-        requestError.code = 400;
-        throw requestError;
-    }
+    }   
   }
 
   async checkRequest(request){
@@ -26,25 +19,24 @@ class GetWeatherService extends GenericService {
   }
 
   async execute(request){
-    const {city, timestamp} = request.params;    
+    const {city} = request.params;    
     try{
-        const ISOStringDate = new Date(Number(timestamp)).toISOString().slice(0,10);
-        const resultWeather = await GetWeatherFactory.build(city,ISOStringDate);
         //Someone is interested in the city weather, let's keep him/her informed
+        console.log("SSE", city);
         SSEManager.getNotifier().addRoute(city);
 
-        return resultWeather;
+        return {message: 'Done!'};
     }catch(e){
         console.error(e);
         if(e.code){
             throw e;
         }
-        const serviceError = new Error('GetWeatherService Error');
+        const serviceError = new Error('SSERegisterClient Error');
         serviceError.code = 500;
         throw serviceError;
     }
   }
 }
-const getWeatherService = new GetWeatherService();
-module.exports = getWeatherService.handler.bind(getWeatherService);
+const sSERegisterClient = new SSERegisterClient();
+module.exports = sSERegisterClient.handler.bind(sSERegisterClient);
 

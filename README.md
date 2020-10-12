@@ -9,7 +9,7 @@ Here an example [HerokuWeatherAPP](https://test22224123.herokuapp.com/)
 
 First clone this repository.
 ```bash
-$ git clone 
+$ git clone https://github.com/JRA-ZGZ/WeatherAPP.git
 ```
 
 Install dependencies. Make sure you already have [`nodejs`](https://nodejs.org/en/) & [`npm`](https://www.npmjs.com/) installed in your system.

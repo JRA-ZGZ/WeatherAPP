@@ -153,7 +153,7 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "weather/city/all",
+    "url": "weather/all",
     "title": "",
     "name": "weather",
     "group": "weather",

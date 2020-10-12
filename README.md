@@ -1,4 +1,4 @@
-# React - weather-app
+# Weather-app
 
 ## Table of contents
 * [Description](#Description)
@@ -6,7 +6,7 @@
 * [Notes](#Notes)
 
 ## Description
-React weather app using OpenWeatherMap API & Firebase.
+React & Express weather app using OpenWeatherMap API & Firebase & SSE notification.
 Here an example [HerokuWeatherAPP](https://test22224123.herokuapp.com/).
 
 Server side exports a rest [API](apidoc/index.html).

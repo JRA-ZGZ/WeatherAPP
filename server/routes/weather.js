@@ -157,7 +157,7 @@ router.get('/city/:city/:timestamp', getWeatherService);
 router.post('/city/:city/:timestamp',addWeatherService);
 
 /**
- * @api {get} weather/city/all
+ * @api {get} weather/all
  * @apiName weather
  * @apiGroup weather
  * @apiExample Example usage:

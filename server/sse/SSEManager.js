@@ -51,7 +51,7 @@ class SSEManager {
             }
             //All has been notified.
             this.listRoutes.clear()
-        }, 10000);
+        }, 30000);
     }
 }
 

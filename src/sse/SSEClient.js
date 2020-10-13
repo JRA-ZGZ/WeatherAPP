@@ -6,8 +6,10 @@ class SSEClient {
         this.handlerEvent = (data) => {
             console.log('Event Received', data);
             try {
-                const parsedData = JSON.parse(data.data);
-                this.notifyMethod(parsedData);
+                if(data.type === this.currentEvent.toLowerCase()){
+                    const parsedData = JSON.parse(data.data);
+                    this.notifyMethod(parsedData);
+                }
             } catch (e) {
                 console.log('Invalid notified data', e);
             }
@@ -21,10 +23,10 @@ class SSEClient {
         if (this.interval) {
             clearInterval(this.interval);
         }
-        this.interval = setInterval(async () => {
+        this.interval = setInterval(async (ctx) => {
             //Notify to the server I'm still interested
             try {
-                this.addEvent(event);
+                ctx.addEvent(event);
                 await fetch(
                     `/sse/${event}`, {
                     method: 'PUT'
@@ -34,22 +36,25 @@ class SSEClient {
                 console.log('SSE Error', e);
             }
 
-        }, 10000);
+        }, 30000, this);
         return this;
     }
     addEvent(event) {
         if (event !== this.currentEvent) {
             this.eventSource.removeEventListener(this.currentEvent, this.handlerEvent);
+            this.currentEvent = event;  
             this.handlerEvent = (data) => {
                 console.log('Event Received', data);
                 try {
-                    const parsedData = JSON.parse(data.data);
-                    this.notifyMethod(parsedData);
+                    if(data.type === this.currentEvent.toLowerCase()){
+                        const parsedData = JSON.parse(data.data);
+                        this.notifyMethod(parsedData);
+                    }
+
                 } catch (e) {
                     console.log('Invalid notified data', e);
                 }
-            }
-            this.currentEvent = event;
+            }          
             this.eventSource.addEventListener(this.currentEvent, this.handlerEvent);
         }
         return this;

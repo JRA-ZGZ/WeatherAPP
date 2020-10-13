@@ -33,7 +33,7 @@ $ npm run start
 ```
 
 ## Notes
-If you want to use firebase remember to config with your own credentials the [FirebaseClient](server/datasources/FirebaseClient.js) 
+Don't forget to config with your own credentials the [FirebaseClient](server/datasources/FirebaseClient.js) 
 ```bash
 const firebaseConfig = {
   apiKey: "api-key",
